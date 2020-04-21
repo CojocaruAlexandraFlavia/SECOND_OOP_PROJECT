@@ -15,12 +15,8 @@ Stiva_Pereche::~Stiva_Pereche()
 }
 void Stiva_Pereche::Push(Pereche* p)
 {
-    Coada_Pereche C1, C2;
+    Coada_Pereche C1(this->n, this->v), C2;
     C2.Push(p);
-    for(int i=n; i>=1; i--){
-        Pereche p1=this->v[i];
-        C1.Push(&p1);
-    }
     while(C1.getNrElemente()>0) {
         Pereche p2=C1.Pop();
         C2.Push(&p2);
@@ -44,10 +40,8 @@ Pereche Stiva_Pereche::Pop()
         std::cout << e.what() << "\n";
     }
     Coada_Pereche C;
-    for(int i=getNrElemente();i>=1; i--){
-        Pereche p=v[i];
-        C.Push(&p);
-    }
+    for(int i=1;i<=getNrElemente();i++)
+        C.Push(&v[i]);
     if(C.getNrElemente()>0){
         this->n=n-1;
         Pereche top=C.Pop();
@@ -66,12 +60,7 @@ Stiva_Pereche& Stiva_Pereche::operator = (const Stiva_Pereche& w)
 int Stiva_Pereche::operator == (Stiva_Pereche& aux)
 {
 
-    if (aux.n!=this->n)
-        return 0;
-    for(int i=1; i<=aux.n; i++)
-        if(!(aux[i]==this->v[i]))
-            return 0;
-    return 1;
+    this->Multime_Pereche::operator == (aux);
 }
 std::istream& operator >> (std::istream& in, Stiva_Pereche& s)
 {
