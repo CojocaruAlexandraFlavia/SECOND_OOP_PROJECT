@@ -42,12 +42,7 @@ Coada_Pereche& Coada_Pereche:: operator =(const Coada_Pereche& aux)
 }
 int Coada_Pereche:: operator == (Coada_Pereche& aux)
 {
-    if (aux.n!=this->n)
-        return 0;
-    for(int i=1; i<=aux.n; i++)
-        if(!(aux[i]==this->v[i]))
-            return 0;
-    return 1;
+    this->Multime_Pereche::operator == (aux);
 }
 std::istream& operator >> (std::istream& in, Coada_Pereche& v)
 {
