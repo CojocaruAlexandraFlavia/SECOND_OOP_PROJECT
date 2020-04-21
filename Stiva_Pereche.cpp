@@ -15,20 +15,13 @@ Stiva_Pereche::~Stiva_Pereche()
 }
 void Stiva_Pereche::Push(Pereche* p)
 {
-    Coada_Pereche C1(this->n, this->v), C2;
-    C2.Push(p);
-    while(C1.getNrElemente()>0) {
-        Pereche p2=C1.Pop();
-        C2.Push(&p2);
-    }
-
-    Coada_Pereche aux=C1;
-    C1=C2;
-    C2=aux;
-
+    Coada_Pereche C;
+    for(int i=1;i<=n;i++)
+        C.Push(&v[i]);
+    C.Push(p);
     this->n=n+1;
-    for(int i=1; i<=C1.getNrElemente(); i++)
-        this->v[i]=C1[getNrElemente()-i+1];
+    for(int i=1;i<=n;i++)
+        this->v[i]=C.Pop();
 
 }
 Pereche Stiva_Pereche::Pop()
@@ -39,15 +32,21 @@ Pereche Stiva_Pereche::Pop()
     } catch (std::exception& e) {
         std::cout << e.what() << "\n";
     }
-    Coada_Pereche C;
-    for(int i=1;i<=getNrElemente();i++)
-        C.Push(&v[i]);
-    if(C.getNrElemente()>0){
-        this->n=n-1;
-        Pereche top=C.Pop();
-        for(int i=1;i<=C.getNrElemente();i++)
-            this->v[getNrElemente()-i+1]=C.Pop();
+    Coada_Pereche C1(this->n, this->v), C2;
+    if(C1.getNrElemente()>0) {
+        while(C1.getNrElemente()>1) {
+            Pereche p=C1.Pop();
+            C2.Push(&p);
+        }
+        Pereche top=C1.Pop();
 
+        Coada_Pereche aux=C1;
+        C1=C2;
+        C2=C1;
+
+        this->n=n-1;
+        for(int i=1; i<=n; i++)
+            this->v[i]=C1.Pop();
         return top;
     }
 }
