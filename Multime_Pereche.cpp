@@ -7,8 +7,12 @@ Multime_Pereche::Multime_Pereche(int n, Pereche* v): n(n),v(v)
         throw NegNrOfElements();
     std::cout<<"Constructor Multime\n";
 }
-Multime_Pereche::Multime_Pereche(const Multime_Pereche& aux): n(aux.n), v(aux.v)
+Multime_Pereche::Multime_Pereche(const Multime_Pereche& aux)
 {
+    this->n=aux.n;
+    this->v=new Pereche [n+1];
+    for (int i = 1; i <=n; i++)
+        this->v[i]=aux.v[i];
     std::cout<<"Constructor copiere Multime\n";
 }
 Multime_Pereche::~Multime_Pereche()
